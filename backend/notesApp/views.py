@@ -1,17 +1,12 @@
 from django.shortcuts import render
-from django.template import Context, loader
-from django.http import HttpResponse, JsonResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+from .models import Notes
+from .serializers import NotesSerializer
 
 
-def DefaultView(request):
-    return HttpResponse("This Django project contains the Notes App")
-
-
-def index(request):
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render())
-
-
+@api_view(['GET'])
 def getRoutes(request):
     routes = [
         {
@@ -46,4 +41,23 @@ def getRoutes(request):
         },
     ]
     # setting safe allows us to send more than just a Dictionary
-    return JsonResponse(routes, safe=False)
+    return Response(routes)
+
+
+@api_view(["GET"])
+def getNotes(request):
+    all_notes = Notes.objects.all()
+    serializer = NotesSerializer(all_notes, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def getNote(request, _id):
+    note = Notes.objects.get(id=_id)
+    serializer = NotesSerializer(note, many=False)
+    return Response(serializer.data)
+
+@api_view(["POST"])
+def updateNote(request, _id):
+    note = Notes.objects.get(id=_id)
+    

@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import index
+from . import views
 
 urlpatterns = [
-    path('', index, name='index')
+    path('', views.getRoutes, name='routes'),
+    path('notes/', views.getNotes, name="all_notes"),
+    path('notes/<str:_id>/', views.getNote, name="note"),
 ]
