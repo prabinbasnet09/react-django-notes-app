@@ -4,7 +4,7 @@ from .models import Notes
 
 
 def getAllNotes(request):
-    notes = Notes.objects.all()
+    notes = Notes.objects.all().order_by('-updated')
     serializer = NotesSerializer(notes, many=True)
     return Response(serializer.data)
 
