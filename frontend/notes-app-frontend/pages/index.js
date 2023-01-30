@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import LoginPage from './notes/login';
 import NoteList from '../components/noteList';
 import styles from '../styles/Home.module.css';
 import listStyles from '../styles/NotesList.module.css';
@@ -41,7 +42,7 @@ export default function Home({ getAllNotes }){
           
             <ul style={{listStyleType: "none"}}>
             {getAllNotes.map((note) => (
-              <Link href={`notes/${note.id.toString()}`}>
+              <Link href={`notes/${note.id.toString()}`} key={note.id}>
                 <li key={note.id}>
                 <NoteList note={note} />
                 </li>

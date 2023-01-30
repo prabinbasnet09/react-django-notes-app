@@ -72,7 +72,7 @@ return(
                                 name="title" 
                                 defaultValue={note?.title}
                                 placeholder = "Title"
-                                maxlength="50" />
+                                maxLength="50" />
 
                     <button type="button" onClick={handleChange}>Back</button>
 
